@@ -43,6 +43,8 @@ Before deploying, ensure you have the following API keys and configuration value
 3. **Environment Variables**: Go to Settings > Variables and Secrets and add all the environment variables listed above. Note that for Cloudflare Pages, these must be set for both the **Production** and **Preview** environments.
 4. **SPA Routing**: The included `public/_redirects` file ensures that all routes are correctly handled by the React application's router.
 
+> **Note on Vite 8**: This project has been upgraded to **Vite 8** to satisfy Cloudflare's latest deployment requirements (specifically compatibility with `@cloudflare/vite-plugin`). Ensure your local development environment uses Node.js v20 or later.
+
 ---
 
 ## Verification
