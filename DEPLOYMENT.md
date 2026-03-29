@@ -1,6 +1,6 @@
 # Deployment Guide
 
-This project is a React application built with Vite and Tailwind CSS. It is configured for deployment on both **Vercel** and **Cloudflare Pages**.
+This project is a React application built with Vite and Tailwind CSS. It is configured for deployment on both **Vercel** and **Cloudflare (Pages or Workers Assets)**.
 
 ## Prerequisites
 
@@ -23,27 +23,35 @@ Before deploying, ensure you have the following API keys and configuration value
 
 ## Deploying to Vercel
 
-1. **Connect Repository**: Push your code to a Git provider (GitHub, GitLab, or Bitbucket) and connect it to Vercel.
+1. **Connect Repository**: Push your code to a Git provider and connect it to Vercel.
 2. **Framework Preset**: Vercel should automatically detect **Vite**.
 3. **Build Settings**:
    - Build Command: `npm run build`
    - Output Directory: `dist`
-4. **Environment Variables**: Add all the variables listed above in the Vercel dashboard under Project Settings > Environment Variables.
-5. **SPA Routing**: The included `vercel.json` file handles SPA routing by rewriting all requests to `index.html`.
+4. **Environment Variables**: Add all variables in the Vercel dashboard.
+5. **SPA Routing**: The included `vercel.json` file handles SPA routing.
 
 ---
 
-## Deploying to Cloudflare Pages
+## Deploying to Cloudflare
 
-1. **Connect Repository**: Connect your Git repository to Cloudflare Pages via the dashboard.
+This repository is optimized for Cloudflare's **Workers Assets** (the modern deployment model for frontend apps on Cloudflare).
+
+### Option A: Manual/CLI Deployment (using Wrangler)
+1. Install dependencies and build: `npm install && npm run build`
+2. Deploy using Wrangler: `npx wrangler deploy`
+   - The included `wrangler.jsonc` ensures that the `dist` directory is uploaded and SPA routing is enabled.
+
+### Option B: Git-based Deployment (Cloudflare Pages dashboard)
+1. Connect your Git repository in the Cloudflare dashboard.
 2. **Build Settings**:
    - Framework Preset: **Vite**
    - Build Command: `npm run build`
    - Build Output Directory: `dist`
-3. **Environment Variables**: Go to Settings > Variables and Secrets and add all the environment variables listed above. Note that for Cloudflare Pages, these must be set for both the **Production** and **Preview** environments.
-4. **SPA Routing**: The included `public/_redirects` file ensures that all routes are correctly handled by the React application's router.
+3. **Environment Variables**: Add all variables in the dashboard.
+4. **SPA Routing**: The included `public/_redirects` file ensures routing works correctly.
 
-> **Note on Vite 8**: This project has been upgraded to **Vite 8** to satisfy Cloudflare's latest deployment requirements (specifically compatibility with `@cloudflare/vite-plugin`). Ensure your local development environment uses Node.js v20 or later.
+> **Note on Vite 8**: This project uses **Vite 8** for full compatibility with Cloudflare's latest deployment tools.
 
 ---
 
@@ -51,5 +59,5 @@ Before deploying, ensure you have the following API keys and configuration value
 
 After deployment, check the following:
 - **Authentication**: Ensure Firebase login and signup work correctly.
-- **Routing**: Navigate to various pages (Movies, TV Shows, Search) and refresh the browser to confirm SPA routing is functioning.
-- **Data Fetching**: Verify that movie and TV show data are loading correctly from TMDB.
+- **Routing**: Navigate to various pages (Movies, TV Shows, Search) and refresh the browser.
+- **Data Fetching**: Verify that movie and TV show data are loading from TMDB.
